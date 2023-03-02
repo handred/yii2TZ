@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'questionId')->dropDownList(Questions::options()) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'rating')->radioList(Polls::rating_options()) ?>
+            <?= $form->field($model, 'rating')
+            ->inline(true)
+            ->radioList(Polls::rating_options()) ?>
         </div>
     </div>
 

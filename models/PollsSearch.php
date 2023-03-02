@@ -38,7 +38,7 @@ class PollsSearch extends Polls {
      *
      * @return ActiveDataProvider
      */
-    public function search($params) {
+    public function search($params = null) {
         $query = Polls::find();
 
         // add conditions that should always apply here
@@ -52,7 +52,7 @@ class PollsSearch extends Polls {
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            print_r($this->errors,true);
+            print_r($this->errors, true);
             return $dataProvider;
         }
 

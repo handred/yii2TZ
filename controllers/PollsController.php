@@ -4,30 +4,35 @@ namespace app\controllers;
 
 use app\models\Polls;
 use app\models\PollsSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * PollsController implements the CRUD actions for Polls model.
  */
-class PollsController extends Controller
-{
+class PollsController extends Controller {
+
     /**
      * @inheritDoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+                parent::behaviors(),
+                [
+                    'access' => [
+                        'class' => AccessControl::class,
+                        //'only' => ['logout'],
+                        'rules' => [
+                            [
+                                //'actions' => ['logout'],
+                                'allow' => true,
+                                'roles' => ['@'],
+                            ],
+                        ],
                     ],
-                ],
-            ]
+                ]
         );
     }
 
@@ -36,14 +41,23 @@ class PollsController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new PollsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCharts() {
+        $searchModel = new PollsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('charts', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -53,20 +67,18 @@ class PollsController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
     /**
      * Creates a new Polls model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Polls();
 
         if ($this->request->isPost) {
@@ -78,7 +90,7 @@ class PollsController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -86,11 +98,10 @@ class PollsController extends Controller
      * Updates an existing Polls model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -98,7 +109,7 @@ class PollsController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -106,11 +117,10 @@ class PollsController extends Controller
      * Deletes an existing Polls model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -123,12 +133,12 @@ class PollsController extends Controller
      * @return Polls the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Polls::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

@@ -42,6 +42,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Опрос', 'url' => ['/enter/index']],
             ['label' => 'Результаты опроса', 'url' => ['/polls/index']],
             ['label' => 'Графики', 'url' => ['/polls/charts']],
+            ['label' => 'Вопросы', 'url' => ['/questions/index']],
             //['label' => 'About', 'url' => ['/site/about']],
             //['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest

@@ -1,16 +1,20 @@
 <?php
 
+use app\models\Questions;
+use yii\bootstrap5\ActiveForm as ActiveForm2;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var app\models\Questions $model */
-/** @var yii\widgets\ActiveForm $form */
+
+/** @var View $this */
+/** @var Questions $model */
+/** @var ActiveForm $form */
 ?>
 
 <div class="questions-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm2::begin(); ?>
 
     <?= $form->field($model, 'question')->textarea(['rows' => 6]) ?>
 
@@ -18,6 +22,6 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm2::end(); ?>
 
 </div>

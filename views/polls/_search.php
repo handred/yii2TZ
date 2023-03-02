@@ -1,44 +1,87 @@
 <?php
 
+use app\models\Polls;
+use app\models\PollsSearch;
+use app\models\Questions;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
+use yii\web\View;
 
-/** @var yii\web\View $this */
-/** @var app\models\PollsSearch $model */
-/** @var yii\widgets\ActiveForm $form */
+/** @var View $this */
+/** @var PollsSearch $model */
+/** @var ActiveForm $form */
 ?>
 
 <div class="polls-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                //'action' => ['index'],
+                'method' => 'get',
+    ]);
+    ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="row">
+        <div class="col-md-2">
+            <?=
+            $form->field($model, 'tsCreateString')->widget(DatePicker::className(), [
+                'language' => 'ru',
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['class' => 'form-control text-center'],
+                'clientOptions' => [
+                    'defaultDate' => date('Y-m-d'),
+                ],
+            ])
+            ?>
+        </div>
+        <div class="col-md-1">
+            <?= $form->field($model, 'phone')->textInput() ?>
+        </div>
+        <div class="col-md-1">
 
-    <?= $form->field($model, 'tsCreate') ?>
+            <?= $form->field($model, 'email')->textInput() ?>
+        </div>
 
-    <?= $form->field($model, 'phone') ?>
+        <div class="col-md-1">
 
-    <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'area')->textInput() ?>
+        </div>
+        <div class="col-md-1">
+            <?= $form->field($model, 'city')->textInput() ?>
+        </div>
 
-    <?= $form->field($model, 'area') ?>
+        <div class="col-md-1">
+            <?= $form->field($model, 'gender')->dropDownList([null => 'Выбрать'] + Polls::gender_options()) ?>
+        </div>
 
-    <?php // echo $form->field($model, 'city') ?>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="form-label">&nbsp;</label>
+                <?= Html::submitButton('Найти', ['class' => 'btn btn-primary form-control']) ?>
+            </div>
+        </div>
 
-    <?php // echo $form->field($model, 'gender') ?>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label class="form-label">&nbsp; </label>
+                <?= Html::resetButton('Очистить', ['class' => 'btn btn-outline-secondary']) ?>
+            </div>
 
-    <?php // echo $form->field($model, 'rating') ?>
+        </div>
 
-    <?php // echo $form->field($model, 'questionId') ?>
-
-    <?php // echo $form->field($model, 'comment') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
+
+
+
+
+
+
+
+
+
+
+
 
     <?php ActiveForm::end(); ?>
 

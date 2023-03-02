@@ -15,7 +15,7 @@ use yii\web\View;
 $this->title = 'Опрос';
 $this->params['breadcrumbs'][] = $this->title;
 
-echo $dataProvider->query->createCommand()->rawSql;
+//  echo $dataProvider->query->createCommand()->rawSql;
 ?>
 <div class="polls-index">
 

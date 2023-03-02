@@ -21,6 +21,7 @@ class m230228_180138_create_table_polls extends Migration {
         $this->createTable('polls', [
             'id' => $this->primaryKey(),
             'tsCreate' => $this->integer(),
+            'date' => $this->date(),
             'phone' => $this->string()->notNull(),
             'email' => $this->string()->notNull(),
             'area' => $this->string()->notNull(),

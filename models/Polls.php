@@ -50,7 +50,7 @@ class Polls extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'tsCreate' => 'Дата',
-            'tsCreateString'=> 'Дата',
+            'tsCreateString' => 'Дата',
             'phone' => 'Телефон',
             'email' => 'Email',
             'area' => 'Регион',
@@ -66,6 +66,9 @@ class Polls extends \yii\db\ActiveRecord {
     public function beforeSave($insert) {
         if (!$this->tsCreate) {
             $this->tsCreate = time();
+        }
+        if (!$this->date) {
+            $this->date = date('Y-m-d');
         }
         return parent::beforeSave($insert);
     }
